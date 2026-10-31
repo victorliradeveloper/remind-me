@@ -1,0 +1,40 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/api/users/**
+        - id: reminder-service
+          uri: lb://reminder-service
+          predicates:
+            - Path=/api/reminders/**
+        - id: notification-service
+          uri: lb://notification-service
+          predicates:
+            - Path=/api/notifications/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${EUREKA_HOST:localhost}:8761/eureka/
+
+security:
+  jwt:
+    secret: ${JWT_SECRET:your-secret-key-here-make-it-long-enough-at-least-256-bits}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info

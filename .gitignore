@@ -1,0 +1,20 @@
+.spec
+
+# Maven
+target/
+*.class
+*.jar
+*.war
+
+# IDE
+.idea/
+*.iml
+.vscode/
+*.eclipse
+
+# Environment
+.env
+
+# OS
+.DS_Store
+Thumbs.db

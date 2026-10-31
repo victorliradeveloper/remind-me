@@ -1,0 +1,34 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: notification-service
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
+
+rabbitmq:
+  exchanges:
+    notifications: notifications.exchange
+  queues:
+    email: notifications.email.queue
+    whatsapp: notifications.whatsapp.queue
+    sms: notifications.sms.queue
+  routing-keys:
+    email: notifications.email
+    whatsapp: notifications.whatsapp
+    sms: notifications.sms
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${EUREKA_HOST:localhost}:8761/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
